@@ -1,5 +1,6 @@
 package com.example.yuefan.view.activity;
 
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.yuefan.R;
@@ -27,6 +29,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         submitButton=findViewById(R.id.register_button);
         view=submitButton;
         textInputEditText=findViewById(R.id.register_zhang);

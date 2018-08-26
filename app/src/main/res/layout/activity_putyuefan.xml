@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    tools:context="com.example.yuefan.view.activity.PutYueFanActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/PutYue_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff9fa9b"
+        android:padding="10dp">
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/put_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:layout_below="@id/PutYue_toolbar"
+        android:layout_marginBottom="5dp">
+        <EditText
+            android:id="@+id/put_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="20dp"
+            android:shadowColor="#fff9fa9b"
+            android:theme="@style/MyEditText"
+            android:hint="来个诱人的约饭标题吧"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/put_rec2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/put_rel"
+        android:background="#ffffffff">
+
+        <EditText
+            android:id="@+id/put_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="top"
+            android:theme="@style/MyEditText"
+            android:hint="约饭详情"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/put_rec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/put_content"
+            android:layout_margin="20dp"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/put_rec"
+            app:cardCornerRadius="20dp"
+            >
+            <Button
+                android:id="@+id/put_yuefan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff9fa9b"
+                android:textSize="18sp"
+                android:text="发布约饭"/>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/put_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:transitionName="fab"
+        android:src="@drawable/jiahao"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="#fff9fa9b"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        android:layout_marginTop="10dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#fff9fa9b" />
+</RelativeLayout>
+</ScrollView>

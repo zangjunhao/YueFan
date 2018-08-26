@@ -24,12 +24,12 @@ public class MyService {
         return (int) (dp*density+0.5);
     }
 
-    public static void setStatusBar(Activity activity){
+    public static void setStatusBar(Activity activity,String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#ff555d82"));
+            window.setStatusBarColor(Color.parseColor(color));
         }
     }
 }

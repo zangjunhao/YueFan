@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<com.example.yuefan.view.CustomView.CircleImage
+    android:id="@+id/liaotian_touxiang"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+    android:layout_marginLeft="20dp"
+    android:src="@mipmap/icon"
+    app:KuangWidth="1dp"
+    android:layout_centerVertical="true"/>
+    <TextView
+        android:id="@+id/liaotian_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_toRightOf="@id/liaotian_touxiang"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:text="风吹稻花香"
+        android:textSize="18sp"
+        />
+    <TextView
+        android:id="@+id/liaotian_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8-24"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="18sp"
+        android:layout_marginRight="20dp"
+        />
+
+</RelativeLayout>

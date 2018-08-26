@@ -14,37 +14,46 @@ import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 
 public class UserModel implements IUserModel {
 
+    private static String onUsername;
 
     public interface UserListener {
         void onSuccess();
 
         void onError(AVException e);
+
+    }
+    public static  String getOnUsername()
+    {
+        return onUsername;
     }
     @Override
-    public void login(String username, String password, final UserListener userListener) {
+    public void login(final String username, String password, final UserListener userListener) {
 
         AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
             @Override
             public void done(AVUser avUser, AVException e) {
                 if (e == null) {
                 userListener.onSuccess();
+                onUsername=username;
+                    AVIMClient client = AVIMClient.getInstance(avUser);
+                    client.open(new AVIMClientCallback() {
+                        @Override
+                        public void done(final AVIMClient avimClient, AVIMException e) {
+                            if (e == null) {
+                                userListener.onSuccess();
+                            } else {
+                                userListener.onError(e);
+                            }
+                        }
+                    });
                 } else {
                 userListener.onError(e);
                 }
-                AVIMClient client = AVIMClient.getInstance(avUser);
-                client.open(new AVIMClientCallback() {
-                    @Override
-                    public void done(final AVIMClient avimClient, AVIMException e) {
-                        if (e == null) {
-                            userListener.onSuccess();
-                        } else {
-                            userListener.onError(e);
-                        }
-                    }
-                });
+
             }
         });
     }
+
 
     @Override
     public void register(String username, String password, String email, final UserListener userListener) {
