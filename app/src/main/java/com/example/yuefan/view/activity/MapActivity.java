@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
@@ -33,6 +34,7 @@ public class MapActivity extends AppCompatActivity {
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.getUiSettings().setMyLocationButtonEnabled(true);
         aMap.setMyLocationEnabled(true);
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(19));
         aMap.addMarker(new MarkerOptions().position(it).title(name).snippet("约饭发起人" ));
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
 
