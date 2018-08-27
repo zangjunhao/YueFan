@@ -39,7 +39,8 @@ RedRock最终考核
 
 <img width="300" height="560" src="https://github.com/zangjunhao/YueFan/blob/master/Screenshot_20180827-203045.jpg"/>   <img width="300" height="560" src="https://github.com/zangjunhao/YueFan/blob/master/Screenshot_20180827-211244.jpg"/>  
 
-<img width="300" height="560" src="https://github.com/zangjunhao/YueFan/blob/master/Screenshot_20180827-211332.jpg"/> 
+<img width="300" height="560" src="https://github.com/zangjunhao/YueFan/blob/master/Screenshot_20180827-211332.jpg"/>   <img width="300" height="560" src="https://github.com/zangjunhao/YueFan/blob/master/Screenshot_20180827-203029.jpg"/>  
+
 
 ## 鸣谢
 [知乎matisse](https://github.com/zhihu/Matisse)
