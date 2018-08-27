@@ -16,6 +16,7 @@ import com.amap.api.maps.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.example.yuefan.R;
 import com.example.yuefan.view.CustomView.CircleImage;
+import com.github.chrisbanes.photoview.PhotoView;
 
 public class YueFanActivity extends AppCompatActivity {
 
@@ -68,6 +69,14 @@ public class YueFanActivity extends AppCompatActivity {
             }
         });
         if (imageUrl!=null) Glide.with(this).load(imageUrl).into(imageViewI);
+        imageViewI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(YueFanActivity.this,PhotoActivity.class);
+                intent1.putExtra("imageurl",imageUrl);
+                startActivity(intent1);
+            }
+        });
         juliT=findViewById(R.id.xiangqing_juli);
         nameT.setText(name);
         titleT.setText(title);

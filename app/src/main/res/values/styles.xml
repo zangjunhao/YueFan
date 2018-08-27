@@ -11,6 +11,7 @@
         <item name="colorControlActivated">#393e46</item>
         <item name="colorControlHighlight">#f9499e</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
 

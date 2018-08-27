@@ -77,7 +77,10 @@ public class YueFanAdapter extends RecyclerView .Adapter<YueFanAdapter.YueFanVie
         double Longitude=object.getDouble("Longitude");//经度
         final LatLng it = new LatLng(Latitude,Longitude);
         my = getOnline.getLonPoint(context);
+        Log.d("难受呀马飞飞1", "onBindViewHolder: "+Latitude+"  "+Longitude);
+        Log.d("难受呀马飞飞2", "onBindViewHolder: "+my.latitude+" "+my.longitude);
         final int  distance =(int) AMapUtils.calculateLineDistance(it,my);
+        Log.d("难受呀马飞飞3", "onBindViewHolder: "+distance);
         if(distance>=10000000)
         {
             juli.setText("0米");
@@ -97,7 +100,7 @@ public class YueFanAdapter extends RecyclerView .Adapter<YueFanAdapter.YueFanVie
                 if (avObject!=null) {AVFile avFile =avObject.getAVFile("touxiang");
                 if(avFile!=null)
                 {
-                    Glide.with(context).load(avFile.getUrl()).into(touxiang);
+                    Glide.with(context.getApplicationContext()).load(avFile.getUrl()).into(touxiang);
                     intent.putExtra("touxiang",avFile.getUrl());
                 }
                 else touxiang.setImageResource(R.mipmap.icon);
@@ -111,8 +114,9 @@ public class YueFanAdapter extends RecyclerView .Adapter<YueFanAdapter.YueFanVie
         if(avFile!=null)
         {
             imageView.setVisibility(View.VISIBLE);
-            Glide.with(context).load(avFile.getUrl()).into(imageView);
+            Glide.with(context.getApplicationContext()).load(avFile.getUrl()).into(imageView);
         }
+        else imageView.setVisibility(View.GONE);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

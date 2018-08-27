@@ -10,7 +10,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.example.yuefan.R;
-
+//显示地图
 public class MapActivity extends AppCompatActivity {
     MapView mMapView=null;
     AMap aMap = null;

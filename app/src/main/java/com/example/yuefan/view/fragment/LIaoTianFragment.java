@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,16 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMConversationEventHandler;
 import com.avos.avoscloud.im.v2.AVIMConversationsQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.example.yuefan.Event.MessageEvent;
 import com.example.yuefan.R;
 import com.example.yuefan.tool.getTime;
+import com.example.yuefan.view.activity.MessageActivity;
 import com.example.yuefan.view.adapter.LiaoTianAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,6 +61,7 @@ public class LIaoTianFragment extends Fragment {
     private void initview()
     {
         swipeRefreshLayout=view.findViewById(R.id.liaotian_swipe);
+        AVIMMessageManager.setConversationEventHandler(new changeConversation());
         recyclerView=view.findViewById(R.id.liaotian_recyclerview);
         liaoTianAdapter=new LiaoTianAdapter(getActivity(),usernamelist,timelist,WeiduConversation);
         EventBus.getDefault().register(this);
@@ -79,6 +84,36 @@ public class LIaoTianFragment extends Fragment {
         if (messageEvent.getChangeSign()==1)
         {
             getConversation();
+        }
+    }
+
+    public class changeConversation extends AVIMConversationEventHandler{
+
+        @Override
+        public void onUnreadMessagesCountUpdated(AVIMClient client, AVIMConversation conversation) {
+            super.onUnreadMessagesCountUpdated(client, conversation);
+            Log.d("update", "onUnreadMessagesCountUpdated: ");
+            getConversation();
+        }
+
+        @Override
+        public void onMemberLeft(AVIMClient avimClient, AVIMConversation avimConversation, List<String> list, String s) {
+
+        }
+
+        @Override
+        public void onMemberJoined(AVIMClient avimClient, AVIMConversation avimConversation, List<String> list, String s) {
+
+        }
+
+        @Override
+        public void onKicked(AVIMClient avimClient, AVIMConversation avimConversation, String s) {
+
+        }
+
+        @Override
+        public void onInvited(AVIMClient avimClient, AVIMConversation avimConversation, String s) {
+
         }
     }
 

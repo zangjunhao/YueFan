@@ -64,6 +64,7 @@ public class getOnline {
 //启动定位
         mLocationClient.startLocation();
         LatLng start = new LatLng(Latitude, Longitude);
+
         return start;
     }
 

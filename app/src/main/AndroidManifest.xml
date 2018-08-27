@@ -36,12 +36,13 @@
         android:icon="@mipmap/icon"
         android:label="约饭"
         android:roundIcon="@mipmap/icon"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+       >
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="0f1257d3760c130ec8560ae97ec3038c" />
-
         <service android:name="com.avos.avoscloud.PushService" />
         <service android:name="com.amap.api.location.APSService" />
 
@@ -53,7 +54,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".view.activity.StartActivity">
+        <activity android:name=".view.activity.StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,22 +63,34 @@
             </intent-filter>
         </activity>
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity" />
-        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.LoginActivity"
-            android:theme="@style/Translucent" />
+            android:theme="@style/Translucent"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.RegisterActivity"
-            android:theme="@style/Translucent" />
-        <activity android:name=".view.activity.PutYueFanActivity" />
-        <activity android:name=".view.activity.YueFanActivity" />
-        <activity android:name=".view.activity.MapActivity" />
-        <activity android:name=".view.activity.ChangePasswordActivity" />
-        <activity android:name=".view.activity.ChangeZhiLiaoActivity" />
-        <activity android:name=".view.activity.PersonXiangxiActivity" />
-        <activity android:name=".view.activity.MessageActivity"
+            android:theme="@style/Translucent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PutYueFanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.YueFanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.MapActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.ChangePasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.ChangeZhiLiaoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PersonXiangxiActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activity.MessageActivity"
             android:windowSoftInputMode="adjustResize"
-            ></activity>
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PhotoActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

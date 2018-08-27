@@ -1,6 +1,7 @@
 package com.example.yuefan.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.yuefan.R;
 import com.example.yuefan.view.CustomView.CircleImage;
 import com.example.yuefan.view.activity.MessageActivity;
+import com.example.yuefan.view.activity.PhotoActivity;
 
 import java.util.List;
 
@@ -85,7 +87,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     @Override
-    public void onBindViewHolder(MessageViewHolder holder, int position) {
+    public void onBindViewHolder(MessageViewHolder holder, final int position) {
         Log.d("message", "onBindViewHolder: "+itTouxiang);
         switch (typelist.get(position))
         {
@@ -97,10 +99,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 break;
             case leftPic:
                 Glide.with(context).load(contentlist.get(position)).into(holder.leftpic);
-
+                holder.leftpic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(context, PhotoActivity.class);
+                        intent.putExtra("imageurl",contentlist.get(position));
+                        context.startActivity(intent);
+                    }
+                });
                 break;
             case rightPic:
                 Glide.with(context).load(contentlist.get(position)).into(holder.rightpic);
+                holder.rightpic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(context, PhotoActivity.class);
+                        intent.putExtra("imageurl",contentlist.get(position));
+                        context.startActivity(intent);
+                    }
+                });
                 break;
         }
     }

@@ -34,7 +34,6 @@ public class YueFanPresenter implements IYueFanPresenter {
                     yueFanFragment.getYueFan(list);
 
                 }
-
                 @Override
                 public void onError(AVException e) {
                     Log.d("YueFanGetList", "onError: ");

@@ -26,11 +26,14 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.bumptech.glide.Glide;
 import com.example.yuefan.R;
+import com.example.yuefan.presenter.IPutYueFanPresenter;
+import com.example.yuefan.presenter.PutYueFanPersenter;
 import com.example.yuefan.tool.MyService;
 import com.example.yuefan.tool.RealFilePath;
 import com.example.yuefan.view.adapter.PutPhotoAdapter;
@@ -43,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
-public class PutYueFanActivity extends AppCompatActivity implements IAddPhoto{
+public class PutYueFanActivity extends AppCompatActivity implements IAddPhoto,IPutYueFanActivity{
 
     PutPhotoAdapter putPhotoAdapter;
     EditText title;
@@ -70,6 +73,7 @@ public class PutYueFanActivity extends AppCompatActivity implements IAddPhoto{
 
     private void initview()
     {
+        final IPutYueFanPresenter putYueFanPresenter=new PutYueFanPersenter(this);
         putPhotoAdapter=new PutPhotoAdapter(list,this,this);
         recyclerView= findViewById(R.id.put_rec);
         recyclerView.setAdapter(putPhotoAdapter);
@@ -80,25 +84,7 @@ public class PutYueFanActivity extends AppCompatActivity implements IAddPhoto{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AVObject todoFolder = new AVObject("YueFan");// 构建对象
-        todoFolder.put("title", title.getText().toString());// 设置名称
-        todoFolder.put("content",content.getText().toString() );
-        todoFolder.put("username", AVUser.getCurrentUser().getUsername());
-        todoFolder.put("Latitude",Latitude);
-        todoFolder.put("Longitude",Longitude);
-        for(int i=0;i<list.size();i++)
-        {
-            try {
-                AVFile avFile=AVFile.withAbsoluteLocalPath("yuefan.png",RealFilePath.getPath(PutYueFanActivity.this,list.get(i)));
-                avFile.saveInBackground();
-                todoFolder.put("image",avFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        todoFolder.saveInBackground();
-                Toast.makeText(PutYueFanActivity.this,"已发布约饭",Toast.LENGTH_SHORT).show();
-                finish();
+                putYueFanPresenter.putYueFan(PutYueFanActivity.this,title.getText().toString(),content.getText().toString(), AVUser.getCurrentUser().getUsername(),Latitude,Longitude,list);
             }
         });
 
@@ -155,5 +141,16 @@ public class PutYueFanActivity extends AppCompatActivity implements IAddPhoto{
                 .theme(R.style.Matisse_Zhihu)//主题  暗色主题 R.style.Matisse_Dracula
                 .imageEngine(new GlideEngine())//加载方式
                 .forResult(23);//请求码
+    }
+
+    @Override
+    public void onSuccess() {
+        Toast.makeText(PutYueFanActivity.this,"已发布约饭",Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onError(AVException e) {
+        Toast.makeText(PutYueFanActivity.this,"发布失败",Toast.LENGTH_SHORT).show();
     }
 }
