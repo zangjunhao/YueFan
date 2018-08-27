@@ -17,9 +17,14 @@ import com.avos.avoscloud.im.v2.AVIMConversationsQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
+import com.example.yuefan.Event.MessageEvent;
 import com.example.yuefan.R;
 import com.example.yuefan.tool.getTime;
 import com.example.yuefan.view.adapter.LiaoTianAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +39,11 @@ public class LIaoTianFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
     LiaoTianAdapter liaoTianAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
     List<String> usernamelist=new ArrayList<>();
     List<String> timelist=new ArrayList<>();
+    List<Integer> WeiduConversation=new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,10 +56,36 @@ public class LIaoTianFragment extends Fragment {
 
     private void initview()
     {
+        swipeRefreshLayout=view.findViewById(R.id.liaotian_swipe);
         recyclerView=view.findViewById(R.id.liaotian_recyclerview);
-        liaoTianAdapter=new LiaoTianAdapter(getActivity(),usernamelist,timelist);
+        liaoTianAdapter=new LiaoTianAdapter(getActivity(),usernamelist,timelist,WeiduConversation);
+        EventBus.getDefault().register(this);
         recyclerView.setAdapter(liaoTianAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        getConversation();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+            getConversation();
+            swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMessage(MessageEvent messageEvent) {
+        if (messageEvent.getChangeSign()==1)
+        {
+            getConversation();
+        }
+    }
+
+    private void getConversation()
+    {
+        final List<String> usernamelist1=new ArrayList<>();
+        final List<String> timelist1=new ArrayList<>();
         tom.open(new AVIMClientCallback(){
             @Override
             public void done(AVIMClient client,AVIMException e){
@@ -63,20 +97,22 @@ public class LIaoTianFragment extends Fragment {
                         public void done(List<AVIMConversation> convs, AVIMException e){
                             if(e==null){
                                 AVIMConversation conversation;
-                               for(int i=0;i<convs.size();i++)
-                               {
-                                   conversation=convs.get(i);
-                                   timelist.add(getTime.getTimeFormatText(conversation.getUpdatedAt()));
-                                   for(int j=0;j<conversation.getMembers().size();j++)
-                                   {
-                                       if(!conversation.getMembers().get(j).equals(AVUser.getCurrentUser().getUsername()))
-                                       {
-                                           usernamelist.add(conversation.getMembers().get(j));
-                                       }
-                                   }
+                                for(int i=0;i<convs.size();i++)
+                                {
+                                    conversation=convs.get(i);
+                                    timelist1.add(getTime.getTimeFormatText(conversation.getUpdatedAt()));
+                                    for(int j=0;j<conversation.getMembers().size();j++)
+                                    {
+                                        if(!conversation.getMembers().get(j).equals(AVUser.getCurrentUser().getUsername()))
+                                        {
+                                            usernamelist1.add(conversation.getMembers().get(j));
+                                            WeiduConversation.add(conversation.getUnreadMessagesCount());
+                                        }
+                                    }
 
-                               }
-                               liaoTianAdapter.notifyDataSetChanged();
+                                }
+                                liaoTianAdapter=new LiaoTianAdapter(getActivity(),usernamelist1,timelist1,WeiduConversation);
+                                recyclerView.setAdapter(liaoTianAdapter);
                             }
                         }
                     });
@@ -85,4 +121,14 @@ public class LIaoTianFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        tom.close(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+            }
+        });
+    }
 }

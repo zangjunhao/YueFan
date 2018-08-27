@@ -57,7 +57,12 @@ public class PersonXiangxiActivity extends AppCompatActivity implements IYueFanF
         jianjie=findViewById(R.id.person_jianjie);
         aihao=findViewById(R.id.person_aihao);
         liaotian=findViewById(R.id.person_liaotian);
+        if(AVUser.getCurrentUser().getUsername().equals(username))
+        {
+            liaotian.setVisibility(View.GONE);
+        }
         final AVQuery<AVUser> userQuery = new AVQuery<>("_User");
+        userQuery.whereStartsWith("username",username);
         userQuery.findInBackground(new FindCallback<AVUser>() {
             @Override
             public void done(List<AVUser> list, AVException e) {
@@ -76,12 +81,10 @@ public class PersonXiangxiActivity extends AppCompatActivity implements IYueFanF
         liaotian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!AVUser.getCurrentUser().getUsername().equals(username)) {
                     Intent intent = new Intent(PersonXiangxiActivity.this, MessageActivity.class);
                     intent.putExtra("username", username);
                     intent.putExtra("imageUrl",imageUrl);
                     startActivity(intent);
-                }
             }
         });
     }

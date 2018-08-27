@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#04000000"
     xmlns:app1="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,6 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="#ffffffff">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ff000000"
+            android:layout_below="@id/My_name"
+            />
 <com.example.yuefan.view.CustomView.CircleImage
     android:id="@+id/My_toutxiang"
     android:layout_width="80dp"
@@ -29,7 +37,7 @@
         android:textSize="20sp"
         android:layout_below="@id/My_toutxiang"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:maxLines="2"
         android:layout_marginLeft="20dp"
         android:text="并没有个人简介"/>
@@ -70,9 +78,10 @@
         android:layout_height="50dp"
         android:text="重置密码"
         android:background="#ffffffff"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textColor="#cc000000"
         android:layout_below="@id/my_namerela"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"/>
 
     <TextView
@@ -81,7 +90,8 @@
         android:layout_height="50dp"
         android:text="修改资料"
         android:background="#ffffffff"
-        android:textSize="20sp"
+        android:textColor="#cc000000"
+        android:textSize="18sp"
         android:layout_below="@id/My_changepassword"
         android:layout_marginTop="20dp"
         android:gravity="center"/>

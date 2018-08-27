@@ -30,12 +30,15 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.bumptech.glide.Glide;
+import com.example.yuefan.Event.MessageEvent;
 import com.example.yuefan.R;
 import com.example.yuefan.tool.RealFilePath;
 import com.example.yuefan.view.adapter.MessageAdapter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -78,7 +81,7 @@ public class MessageActivity extends AppCompatActivity {
         imageView=findViewById(R.id.message_photo);
         button=findViewById(R.id.message_fasong);
         recyclerView=findViewById(R.id.message_rec);
-        messageAdapter=new MessageAdapter(this,contentlist,Typelist,itTouxiang);
+        messageAdapter=new MessageAdapter(this,contentlist,Typelist,itTouxiang,username);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(messageAdapter);
         AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
@@ -102,6 +105,7 @@ public class MessageActivity extends AppCompatActivity {
                                 @Override
                                 public void done(final AVIMConversation conversation, AVIMException e) {
                                     if (e == null) {
+                                        conversation.read();
                                         theconversation=conversation;
                                         conversation.queryMessages(30, new AVIMMessagesQueryCallback() {
                                             @Override
@@ -153,10 +157,9 @@ public class MessageActivity extends AppCompatActivity {
                                                     @Override
                                                     public void done(AVIMException e) {
                                                         if (e == null) {
-                                                            Toast.makeText(getApplicationContext(),"发送成功",Toast.LENGTH_SHORT).show();
                                                             contentlist.add(editText.getText().toString());
                                                             Typelist.add(rightText);
-                                                            messageAdapter.notifyDataSetChanged();
+                                                            messageAdapter.notifyItemChanged(contentlist.size()-1);
                                                             recyclerView.scrollToPosition(contentlist.size()-1);
                                                             editText.setText("");
                                                         }
@@ -186,11 +189,12 @@ public class MessageActivity extends AppCompatActivity {
         //接收到消息后的处理逻辑
         @Override
         public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            EventBus.getDefault().post(new MessageEvent(1));
             if (message instanceof AVIMTextMessage) {
                 contentlist.add(((AVIMTextMessage) message).getText());
                 Typelist.add(leftText);
+                messageAdapter.notifyItemChanged(contentlist.size()-1);
                 recyclerView.scrollToPosition(contentlist.size()-1);
-                messageAdapter.notifyDataSetChanged();
             }
             if (message instanceof AVIMImageMessage)
             {
@@ -199,8 +203,9 @@ public class MessageActivity extends AppCompatActivity {
                 contentlist.add(imageMessage.getFileUrl());
                 Log.d(TAG, "onMessage: 执行了"+imageMessage.getFileUrl());
                 Typelist.add(leftPic);
+                messageAdapter.notifyItemChanged(contentlist.size()-1);
                 recyclerView.scrollToPosition(contentlist.size()-1);
-                messageAdapter.notifyDataSetChanged();
+
             }
         }
 
@@ -223,7 +228,7 @@ public class MessageActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"发送成功",Toast.LENGTH_SHORT).show();
                         contentlist.add(RealFilePath.getPath(getApplicationContext(),Matisse.obtainResult(data).get(0)));
                         Typelist.add(rightPic);
-                        messageAdapter.notifyDataSetChanged();
+                        messageAdapter.notifyItemChanged(contentlist.size()-1);
                         recyclerView.scrollToPosition(contentlist.size()-1);
                         Log.d(TAG, "done: "+RealFilePath.getPath(getApplicationContext(),Matisse.obtainResult(data).get(0)));
                     }
@@ -258,8 +263,8 @@ public class MessageActivity extends AppCompatActivity {
         tom.close(new AVIMClientCallback() {
             @Override
             public void done(AVIMClient avimClient, AVIMException e) {
-                Toast.makeText(getApplicationContext(),"关闭聊天",Toast.LENGTH_SHORT).show();
             }
         });
+        finish();
     }
 }

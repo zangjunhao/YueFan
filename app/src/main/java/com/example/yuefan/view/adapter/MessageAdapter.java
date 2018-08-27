@@ -2,13 +2,18 @@ package com.example.yuefan.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.bumptech.glide.Glide;
 import com.example.yuefan.R;
 import com.example.yuefan.view.CustomView.CircleImage;
@@ -27,16 +32,31 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     List<Integer> typelist;
     String itTouxiang;
     String MyTouxiang;
-    public MessageAdapter(Context context,List<String>contentlist,List<Integer> typelist,String itTouxiang)
+    String username;
+    public MessageAdapter(Context context,List<String>contentlist,List<Integer> typelist,String itTouxiang1,String username)
     {
         this.context=context;
         this.contentlist=contentlist;
         this.typelist=typelist;
-        this.itTouxiang=itTouxiang;
+
+        this.username=username;
         if(AVUser.getCurrentUser().getAVFile("touxiang")!=null)
         {
             MyTouxiang=AVUser.getCurrentUser().getAVFile("touxiang").getUrl();
         }
+        AVQuery<AVUser> userQuery = new AVQuery<>("_User");
+        userQuery.whereStartsWith("username",username);
+        userQuery.findInBackground(new FindCallback<AVUser>() {
+            @Override
+            public void done(List<AVUser> list, AVException e) {
+                AVUser avUser=list.get(0);
+                AVFile avFile=avUser.getAVFile("touxiang");
+                if(avFile!=null)
+                {
+                 itTouxiang =avFile.getUrl();
+                }
+            }
+        });
     }
 
     @Override
@@ -66,6 +86,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
+        Log.d("message", "onBindViewHolder: "+itTouxiang);
         switch (typelist.get(position))
         {
             case leftText :
@@ -105,34 +126,38 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 case leftText:
                     lefttext=itemView.findViewById(R.id.message_lefttext);
                     lefttexttou=itemView.findViewById(R.id.message_lefttext_touxiang);
-                    if (itTouxiang!=null)
+                    if (itTouxiang!="")
                     {
-                        Glide.with(context).load(itTouxiang).into(lefttexttou);
+                        Glide.with(context).load(itTouxiang).placeholder(R.mipmap.icon).into(lefttexttou);
                     }
+                    else lefttexttou.setImageResource(R.mipmap.icon);
                     break;
                 case rightText:
                     righttext=itemView.findViewById(R.id.message_righttext);
                     righttexttou=itemView.findViewById(R.id.message_righttext_touxiang);
-                    if(MyTouxiang!=null)
+                    if(MyTouxiang!="")
                     {
-                        Glide.with(context).load(MyTouxiang).into(righttexttou);
+                        Glide.with(context).load(MyTouxiang).placeholder(R.mipmap.icon).into(righttexttou);
                     }
+                    else righttexttou.setImageResource(R.mipmap.icon);
                     break;
                 case leftPic:
                        leftpic =itemView.findViewById(R.id.message_leftpic);
                        leftpictou=itemView.findViewById(R.id.message_leftpic_touxiang);
-                    if (itTouxiang!=null)
+                    if (itTouxiang!="")
                     {
-                        Glide.with(context).load(itTouxiang).into(leftpictou);
+                        Glide.with(context).load(itTouxiang).placeholder(R.mipmap.icon).into(leftpictou);
                     }
+                    else leftpictou.setImageResource(R.mipmap.icon);
                         break;
                 case rightPic:
                     rightpic=itemView.findViewById(R.id.message_rightpic);
                     rightpictou=itemView.findViewById(R.id.message_rightpic_touxiang);
-                    if(MyTouxiang!=null)
+                    if(MyTouxiang!="")
                     {
-                        Glide.with(context).load(MyTouxiang).into(rightpictou);
+                        Glide.with(context).load(MyTouxiang).placeholder(R.mipmap.icon).into(rightpictou);
                     }
+                    else rightpictou.setImageResource(R.mipmap.icon);
                     break;
 
             }

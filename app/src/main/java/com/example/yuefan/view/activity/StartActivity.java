@@ -31,16 +31,16 @@ public class StartActivity extends AppCompatActivity implements IStartActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         MyService.setStatusBar(this,"#6600541a");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && this.checkSelfPermission(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            this.requestPermissions(new String[]{
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_PHONE_STATE,
-            }, 1);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && this.checkSelfPermission(
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            this.requestPermissions(new String[]{
+//                    Manifest.permission.ACCESS_COARSE_LOCATION,
+//                    Manifest.permission.ACCESS_FINE_LOCATION,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    Manifest.permission.READ_PHONE_STATE,
+//            }, 1);
+//        }
         AVOSCloud.initialize(this,"VpMWcDwesJSsvpGz42p5cecD-gzGzoHsz","furwvgAg6FPHHTw9EQFNKD6u");
         AVIMClient.setUnreadNotificationEnabled(true);
 //        AVObject todoFolder = new AVObject("YueFan");// 构建对象

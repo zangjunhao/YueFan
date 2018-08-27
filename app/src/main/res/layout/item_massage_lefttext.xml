@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#bae2be"
         android:layout_marginRight="100dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/message_lefttext_touxiang"
         >
         <TextView

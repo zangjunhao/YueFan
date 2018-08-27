@@ -27,7 +27,7 @@ import com.example.yuefan.presenter.ILoginPresenter;
 import com.example.yuefan.presenter.LoginPresenter;
 import com.unstoppable.submitbuttonview.SubmitButton;
 
-public class LoginActivity extends AppCompatActivity implements ILoginActivity,View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements ILoginActivity, View.OnClickListener {
 
     SubmitButton submitButton;
     TextInputEditText textInputEditText;
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity,V
     TextView textView;
     TextView textView1;
     View view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +45,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity,V
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
-        submitButton=findViewById(R.id.login_button);
-       textInputEditText=findViewById(R.id.login_zhang);
-       view=textInputEditText;
-       iLoginPresenter=new LoginPresenter(this);
-         textInputEditText1=findViewById(R.id.login_mi);
-         textView=findViewById(R.id.login_niming);
-         textView1=findViewById(R.id.login_register);
+        submitButton = findViewById(R.id.login_button);
+        textInputEditText = findViewById(R.id.login_zhang);
+        view = textInputEditText;
+        iLoginPresenter = new LoginPresenter(this);
+        textInputEditText1 = findViewById(R.id.login_mi);
+        textView = findViewById(R.id.login_niming);
+        textView1 = findViewById(R.id.login_register);
         textView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
         textView1.setOnClickListener(this);
@@ -91,18 +92,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity,V
 
     @Override
     public void Login() {
-        String name=textInputEditText.getText().toString();
-        String password=textInputEditText1.getText().toString();
+        String name = textInputEditText.getText().toString();
+        String password = textInputEditText1.getText().toString();
         if (!name.equals("") && !password.equals("")) {
-        iLoginPresenter.Login(name,password);
+            iLoginPresenter.Login(name, password);
         } else {
             toast("用户名和密码不能为空");
             submitButton.doResult(false);
         }
     }
 
-    private void toast(String content){
-        Snackbar.make(view,content,Toast.LENGTH_SHORT).show();
+    private void toast(String content) {
+        Snackbar.make(view, content, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -111,14 +112,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity,V
         submitButton.setOnResultEndListener(new SubmitButton.OnResultEndListener() {
             @Override
             public void onResultEnd() {
-                if (isOk==true)
-                {
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                if (isOk == true) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else
-                {
+                } else {
                     toast("失败");
                 }
             }
@@ -128,23 +126,23 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity,V
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.login_niming:
-                Snackbar.make(view,"正在为您创建匿名账号",Toast.LENGTH_LONG).show();
+                Snackbar.make(view, "正在为您创建匿名账号", Toast.LENGTH_LONG).show();
                 AVAnonymousUtils.logIn(new LogInCallback<AVUser>() {
                     @Override
                     public void done(AVUser avUser, AVException e) {
-                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 });
                 break;
             case R.id.login_register:
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-              //  Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this, android.support.v4.util.Pair.create(textView1, "zhuche"), android.support.v4.util.Pair.create(submitButton, "button")).toBundle();
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                //  Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this, android.support.v4.util.Pair.create(textView1, "zhuche"), android.support.v4.util.Pair.create(submitButton, "button")).toBundle();
                 startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this,textView1,"zhuche").toBundle());
+//                startActivity(intent);
                 break;
             case R.id.login_button:
                 Login();

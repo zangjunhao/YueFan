@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="140dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:background="#ffffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <com.example.yuefan.view.CustomView.CircleImage
     android:id="@+id/liaotian_touxiang"
@@ -34,4 +35,14 @@
         android:layout_marginRight="20dp"
         />
 
+    <TextView
+        android:id="@+id/liaotian_weidu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5条未读"
+        android:textColor="#dd0a35"
+        android:layout_below="@id/liaotian_time"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        />
 </RelativeLayout>

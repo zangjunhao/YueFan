@@ -92,13 +92,15 @@ public class YueFanAdapter extends RecyclerView .Adapter<YueFanAdapter.YueFanVie
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                AVObject avObject = list.get(0);
+                AVObject avObject = null;
+                if(list.get(0)!=null)  avObject = list.get(0);
                 if (avObject!=null) {AVFile avFile =avObject.getAVFile("touxiang");
                 if(avFile!=null)
                 {
                     Glide.with(context).load(avFile.getUrl()).into(touxiang);
                     intent.putExtra("touxiang",avFile.getUrl());
                 }
+                else touxiang.setImageResource(R.mipmap.icon);
                 }
             }
         });

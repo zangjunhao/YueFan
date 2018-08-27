@@ -25,13 +25,18 @@
                 android:background="#00ffffff"
                 app:layout_collapseMode="parallax"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextColor="#ff000000"
                 app:title="聊天室" />
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
 
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/liaotian_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,6 +48,6 @@
                 android:layout_height="wrap_content"
                 />
         </android.support.v4.widget.NestedScrollView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>

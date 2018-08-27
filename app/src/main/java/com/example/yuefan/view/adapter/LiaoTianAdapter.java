@@ -30,13 +30,15 @@ public class LiaoTianAdapter extends RecyclerView.Adapter<LiaoTianAdapter.LiaoTi
     Context context;
     List<String>nameList;
     List<String>timelist;
-    String imageUrl;
+    List<Integer>weiduConversation;
+    String imageUrl="";
 
-    public LiaoTianAdapter(Context context, List<String>nameList,List<String>time)
+    public LiaoTianAdapter(Context context, List<String>nameList,List<String>time,List<Integer>weiduConversation)
     {
         this.context=context;
         this.nameList=nameList;
         this.timelist=time;
+        this.weiduConversation=weiduConversation;
     }
 
     @Override
@@ -49,6 +51,9 @@ public class LiaoTianAdapter extends RecyclerView.Adapter<LiaoTianAdapter.LiaoTi
     public void onBindViewHolder(LiaoTianViewHolder holder, final int position) {
         TextView name=holder.name;
         TextView time=holder.time;
+        TextView weidu=holder.weidu;
+        RelativeLayout relativeLayout=holder.relativeLayout;
+        weidu.setText(weiduConversation.get(position)+"条未读");
         final CircleImage touxiang=holder.touxiang;
         name.setText(nameList.get(position));
         time.setText(timelist.get(position));
@@ -66,24 +71,17 @@ public class LiaoTianAdapter extends RecyclerView.Adapter<LiaoTianAdapter.LiaoTi
                   {
                       Glide.with(context).load(imageUrl).into(touxiang);
                   }
-                  touxiang.setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                          Intent intent=new Intent(context, MessageActivity.class);
-                          intent.putExtra("username",nameList.get(position));
-                          intent.putExtra("imageUrl",imageUrl);
-                          context.startActivity(intent);
-                      }
-                  });
+
               }
             }
         });
-        touxiang.setOnClickListener(new View.OnClickListener() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, MessageActivity.class);
                 intent.putExtra("username",nameList.get(position));
                 intent.putExtra("imageUrl",imageUrl);
+                context.startActivity(intent);
             }
         });
     }
@@ -94,15 +92,18 @@ public class LiaoTianAdapter extends RecyclerView.Adapter<LiaoTianAdapter.LiaoTi
     }
 
     class LiaoTianViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout relativeLayout;
         TextView name;
         TextView time;
+        TextView weidu;
         CircleImage touxiang;
         public LiaoTianViewHolder(View itemView) {
             super(itemView);
+            relativeLayout=(RelativeLayout)itemView;
             name=itemView.findViewById(R.id.liaotian_name);
             time=itemView.findViewById(R.id.liaotian_time);
             touxiang=itemView.findViewById(R.id.liaotian_touxiang);
-
+            weidu=itemView.findViewById(R.id.liaotian_weidu);
         }
     }
 

@@ -8,6 +8,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:background="@drawable/time2"
+
         android:layout_height="150dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -24,6 +25,7 @@
                 android:background="#00ffffff"
                 app:layout_collapseMode="parallax"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextColor="#ff000000"
                 app:title="约饭厅" />
         </android.support.design.widget.CollapsingToolbarLayout>
 
