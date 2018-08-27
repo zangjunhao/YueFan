@@ -127,17 +127,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.login_niming:
-                Snackbar.make(view, "正在为您创建匿名账号", Toast.LENGTH_LONG).show();
-                AVAnonymousUtils.logIn(new LogInCallback<AVUser>() {
-                    @Override
-                    public void done(AVUser avUser, AVException e) {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-                break;
+//            case R.id.login_niming:
+//                Snackbar.make(view, "正在为您创建匿名账号", Toast.LENGTH_LONG).show();
+//                AVAnonymousUtils.logIn(new LogInCallback<AVUser>() {
+//                    @Override
+//                    public void done(AVUser avUser, AVException e) {
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                });
+//                break;
             case R.id.login_register:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 //  Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this, android.support.v4.util.Pair.create(textView1, "zhuche"), android.support.v4.util.Pair.create(submitButton, "button")).toBundle();

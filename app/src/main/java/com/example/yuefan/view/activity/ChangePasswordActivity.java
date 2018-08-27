@@ -12,6 +12,8 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.RequestPasswordResetCallback;
 import com.example.yuefan.R;
 
+
+//修改密码
 public class ChangePasswordActivity extends AppCompatActivity {
 
     Button button;

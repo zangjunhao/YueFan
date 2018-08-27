@@ -96,7 +96,7 @@ public class YueFanAdapter extends RecyclerView .Adapter<YueFanAdapter.YueFanVie
             @Override
             public void done(List<AVObject> list, AVException e) {
                 AVObject avObject = null;
-                if(list.get(0)!=null)  avObject = list.get(0);
+                if(list.size()!=0)  avObject = list.get(0);
                 if (avObject!=null) {AVFile avFile =avObject.getAVFile("touxiang");
                 if(avFile!=null)
                 {

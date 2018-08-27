@@ -69,7 +69,7 @@ public class LiaoTianAdapter extends RecyclerView.Adapter<LiaoTianAdapter.LiaoTi
                   imageUrl=avFile.getUrl();
                   if(imageUrl!=null)
                   {
-                      Glide.with(context).load(imageUrl).into(touxiang);
+                      Glide.with(context.getApplicationContext()).load(imageUrl).into(touxiang);
                   }
 
               }
